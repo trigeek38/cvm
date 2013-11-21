@@ -1,0 +1,39 @@
+%% Zotonic site configuration for cvm.
+[
+ %% This site is enabled or not.
+ {enabled, true},
+
+ %% Hostname on which this site runs
+ {hostname, "10.15.161.142:8000"},
+
+ %% Aliases which should redirect to the primary hostname
+ %%{hostalias, ["cvm:8000", "example.com"]},
+
+ {redirect, false},
+
+ %% PostgreSQL database connection
+ {dbhost, "127.0.0.1"},
+
+ {
+   dbport, 5432
+ },
+ {dbuser, "zotonic"},
+ {dbpassword, "zotonic"},
+ {dbdatabase, "cvm"},
+ {dbschema, "public"},
+
+ %% Depcache settings. The maximum size in Mbs
+ {depcache_memory_max, 100},
+
+ %% Password for the 'admin' user.
+ {admin_password, "admin"},
+
+ %% What skeleton site this site is based on; for installing the initial data.
+ {
+   skeleton, empty
+ }
+
+ %% Uncomment to override skeleton defaults
+ %%,{install_menu, []}
+ %%,{install_modules, []}
+].
