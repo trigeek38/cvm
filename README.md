@@ -1,4 +1,4 @@
-cvm-it
+cvm
 ======
 
 CVM IT site
