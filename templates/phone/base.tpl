@@ -26,7 +26,6 @@
 
 <body class="{% block page_class %}{% endblock %}">
 {% block navbar %}
-	{% include "_navbar.tpl" %}
 {% endblock %}
 <div class="container-fluid">
 	{% block content_area %}

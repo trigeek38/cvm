@@ -1,5 +1,5 @@
 {# navbar for phone+ #}
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
         <!-- .btn-navbar is used as the toggle for collapsed navbar content -->

@@ -1,5 +1,7 @@
 %% -*- mode: erlang -*-
 %% Put your dispatch rules here.
 [
-     {home,      [],	controller_template,  	[ {template, "home.tpl"} ]}
+     {home,      [],	    controller_template,  	[ {template, "endo_home.tpl"}, {acl, is_auth} ]},
+     {profile_list,      ["profile"],	    controller_template,  	[ {template, "profile_list.tpl"}, {acl, is_auth} ]},
+     {profile,      ["profile", id],	    controller_page,  	[ {template, "profile.tpl"}, {acl, is_auth} ]}
 ].

@@ -8,6 +8,8 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
     <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/4.2/video.js"></script>
 
     <title>CVM - Hotseat</title>
 
@@ -123,80 +125,37 @@ code {
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <h1>DICOM/HL7 Test Server</h1>
+          <h1>EndoView</h1>
         </div>
-        <p class="lead">Provides basic Dicom SCP and HL7 receive capabilities for testing</p>
+        <p class="lead">Endoscopy Review Application</p>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="panel panel-primary">
-              <div class="panel-heading"><h3 class="panel-title">Available DICOM ports</h3></div>
+              <div class="panel-heading"> {{q.img }}</div>
               <div class="panel-body">
-                <p>Below is a list of the current available DICOM port.</p>
-                {% if m.dcm4chee.ports %}
-                <table class="table">
-                <tr><th>Port</th><th>Start</th></tr>
-                {% for f in  m.dcm4chee.ports %}
-                  <tr>
-                    <td>{{ f }}</td>
-                    <td><a href="#" id="{{#start.f}}"><span class="glyphicon glyphicon-play"></span></a></td>
-                    {% wire id=#start.f action={postback postback={start_proc port=f } delegate="mod_dcm4chee"} %}
-                  </tr>
-                {% endfor %}
-                </table>
-                {% else %}
-                  <div class="alert alert-info">All ports are already open</div>
-                {% endif %}
+                {% with m.rsc[329] as id %}
+                    <p><b>Name:</b> {{ id.patient_last }}, {{ id.patient_first }}</p>
+                    <p><b>Id:</b> {{ id.patient_id }}</p>
+                    <p><b>Description:</b> {{ id.description }} </p>
+                    <p><b>Study Path:</b> {{ id.path }}</p>
               </div>
             </div>
+           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <div class="panel panel-primary">
-              <div class="panel-heading"><h3 class="panel-title">Open DICOM ports</h3></div>
+              <div class="panel-heading"> {{q.img }}</div>
               <div class="panel-body">
-                <p>Below is a list of the current open DICOM ports.</p>
-                <p>Files locations: /home/cvm/dicom/cvm/CVMARCHIVE[Port]</p>
-                <p>Example: <code>/home/cvm/dicom/cvm/CVMARCHIVE1104</code></p>
-                <table class="table">
-                <tr><th>Port</th><th>Pid</th><th>Kill</th></tr>
-                {% for f in  m.dcm4chee.open_ports %}
-                  {% with f.pid as pid %}
-                  <tr>
-                    <td>{{ f.port }}</td>
-                    <td>{{ f.pid }}</td>
-                    <td><a href="#" id="{{#remove.pid}}"><span class="glyphicon glyphicon-remove"></span></a></td>
-                    {% wire id=#remove.pid action={postback postback={kill_proc port=f.port} delegate="mod_dcm4chee"} %}
-                  </tr>
-                  {% endwith %}
-                {% endfor %}
-                </table>
+                  <video id="example_video_1" class="video-js vjs-default-skin center-block"
+                      controls preload="auto" width="390" height="160"
+                      poster="/lib/images/endo_archive/{{id.path}}/{{q.thumb}}"
+                      data-setup='{"example_option":true}'>
+                      <source src="/lib/images/endo_archive/{{id.path}}/videos/{{q.img}}" type='video/mp4' />
+                  </video>
+                {% endwith %}
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title">HL7 Ports</h3>
-              </div>
-              <div class="panel-body">
-                <p>HL7 messages are stored in <code>/home/cvm/hl7</code></p>
-                <table class="table">
-                  <tr><th>Pid</th><th>Port</th></tr>
-                    <tr>
-                      <td>{{ m.dcm4chee.hl7_info.pid }}</td> 
-                      <td>{{ m.dcm4chee.hl7_info.port }}
-                          {% button class="btn btn-primary pull-right" text="Restart" action={postback postback={start_hl7 hl7_port="5656"} delegate="mod_dcm4chee"} %}
-                      </td>
-                    </tr> 
-                </table>
-              </div>
-            </div>
-
-            <div class="panel panel-primary">
-              <div class="panel-heading"> Example Dicom to jpeg image</div>
-              <div class="panel-body">
-                <img src="/lib/images/avi.jpeg" height="200" width="200" class="img-rounded">
-              </div>
-            </div>
-
            </div>
         </div>
       </div>
@@ -230,7 +189,6 @@ code {
     "js/modules/livevalidation-1.3.js"
     "js/modules/z.inputoverlay.js"
     "js/modules/jquery.loadmask.js"
-    "js/modules/ubf.js"
 %}
 
 {% block _js_include_extra %}{% endblock %}

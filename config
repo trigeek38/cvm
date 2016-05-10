@@ -4,19 +4,17 @@
  {enabled, true},
 
  %% Hostname on which this site runs
- {hostname, "10.15.161.142:8000"},
+ {hostname, "endoview.vetmed.ufl.edu"},
 
  %% Aliases which should redirect to the primary hostname
- %%{hostalias, ["cvm:8000", "example.com"]},
+{hostalias, ["10.15.248.25:8000"]},
 
  {redirect, false},
 
  %% PostgreSQL database connection
  {dbhost, "127.0.0.1"},
 
- {
-   dbport, 5432
- },
+ {dbport, 5432},
  {dbuser, "zotonic"},
  {dbpassword, "zotonic"},
  {dbdatabase, "cvm"},
@@ -26,7 +24,10 @@
  {depcache_memory_max, 100},
 
  %% Password for the 'admin' user.
- {admin_password, "admin"},
+ {admin_email, "jbell69@ufl.edu"},
+ {admin_password, "cvm!vetmed!"},
+ {title, "EndoView"},
+ {logo, "/home/cvm/z_stuff/z_sites/cvm/lib/images/uf_sah_logo.png"},
 
  %% What skeleton site this site is based on; for installing the initial data.
  {
@@ -35,5 +36,38 @@
 
  %% Uncomment to override skeleton defaults
  %%,{install_menu, []}
- %%,{install_modules, []}
+ ,{install_modules, [
+   mod_base,
+   mod_base_site,
+   mod_menu,
+   mod_oauth,
+   mod_search,
+   mod_oembed,
+   mod_atom_feed,
+   mod_translation,
+   mod_signal,
+   mod_logging,
+   mod_seo,
+   mod_seo_google,
+   mod_seo_sitemap,
+   mod_acl_adminonly,
+   mod_authentication,
+   mod_editor_tinymce,
+   mod_admin,
+   mod_admin_category,
+   mod_admin_config,
+   mod_admin_identity,
+   mod_admin_modules,
+   mod_admin_predicate,
+
+   mod_l10n,
+
+   mod_comment,
+   mod_artwork,
+   mod_bootstrap,
+   mod_endo,
+   mod_pdf,
+   mod_ufldap
+                    ]},
+  {base_template, "endo_base.tpl"}
 ].
